@@ -9,16 +9,17 @@ import { Button, Card, FAB, IconButton, List } from 'react-native-paper';
 const Map = (props) => {
 
 
-    const [lat, setLat] = useState(0);
+    const [lat, setLat] = useState(37.78825);
+    const [long, setlong] = useState(-122.4324);
+    const [s, setS] = useState(0);
+    const chk = 2;
     const [latlng, setLatlng] = useState({
         latitude: 37.78825,
         longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       });
-    const [long, setlong] = useState(0);
-    const [s, setS] = useState(0);
-    const chk = 2;
+   
 
 
     useEffect(() => {
@@ -35,7 +36,10 @@ const Map = (props) => {
 
         )
     }, [])
-    // enableLatestRenderer();   
+    // enableLatestRenderer();  
+    
+    
+// Icon@http://192.168.1.70:8081/index.bundle?platform=android&dev=true&minify=false&app=com.tanker&modulesOnly=false&runModule=true:133133:38
     return (
         <View style={styles.container}>
 
@@ -52,28 +56,41 @@ const Map = (props) => {
                             <Marker
                                 onPress={() => alert('ready for provide service')}
                                 desciption="origion"
-                                coordinate={{ latitude: latlng.latitude, longitude: latlng.longitude }}
-
+                                coordinate={{ latitude: lat, longitude: long }}
                             >
-                                <Icon name="tanker-truck" size={30} color="green" />
+                                <Icon name="tanker-truck" size={40} color="blue" />
                             </Marker>
                             <Marker
                                 onPress={() => alert('ready for provide service')}
                                 desciption="Destination"
-                                coordinate={{ latitude: latlng.latitude, longitude: latlng.longitude }}
+                                coordinate={{ latitude: lat, longitude: long }}
                             >
-                                <Icon name="tanker-truck" size={30} color="green" />
+                                <Icon name="tanker-truck" size={50} color="red" />
                             </Marker>
                             
                     
                         
                 
+                
+
+            </MapView>
+            {chk==2?
+                
+                     <FAB 
+            onPress={()=>alert('admin add tanker')}
+            style={{ position:'absolute', margin: 0 ,}} icon="plus" 
+            >
+            
+                </FAB>
+                :null}
+
                 {
                     chk==2?
+                    <View style={{bottom:0,position:'absolute',width:'100%'}}>
                     <Card>
                         <Card.Content>
                             <List.Item
-                                title="$ 15.00"
+                                title="pkr 500.00"
                                 description="total price of delivery"
                                 left={()=>
                                <IconButton
@@ -83,26 +100,16 @@ const Map = (props) => {
                                 }
                                 right={()=>
                                 <View>
-                                    <Button>Cancel</Button>
-                                    <Button mode='contained'>Confirm</Button>
+                                    <Button mode='outlined' onPress={()=>alert('you cancel delivery..')}>Cancel</Button>
+                                    <Button mode='contained' onPress={()=>alert('you deliver your delivery..')}>Confirm</Button>
                                 </View>
                             }/>
                                 
                         </Card.Content>
                     </Card>
+                    </View>
                     :null
                 }
-
-            </MapView>
-            {chk==1?
-                
-                     <FAB 
-            onPress={()=>alert('ON Press Hogia')}
-            style={{ position: 'absolute', right: 0, bottom: 0, margin: 60 }} icon="plus" 
-            >
-            
-                </FAB>
-                :null}
            
         </View>
     );
